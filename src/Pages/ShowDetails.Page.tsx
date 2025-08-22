@@ -2,13 +2,19 @@ import { FC } from "react";
 import CastCard from "../Components/CastCard";
 import GenrePill from "../Components/GenrePill";
 import withRouter, { WithRouterProps } from "../hocs/withRouter";
+import { IoIosArrowBack } from "react-icons/io";
 
 type ShowDetailPageProps = WithRouterProps;
 
 const ShowDetailPage: FC<WithRouterProps> = ({ params }) => {
   console.log(params);
+
   return (
     <div className="mt-2">
+      <div>
+        <IoIosArrowBack />
+        Back
+      </div>
       <h2 className="text-4xl font-semibold tracking-wide">The Witcher</h2>
       <div className="flex space-x-3 my-2 bg-gray-300 p-2 rounded-sm">
         <GenrePill name="Action" />

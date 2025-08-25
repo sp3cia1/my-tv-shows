@@ -5,5 +5,6 @@ export type Show = {
     genres: string[];
     rating: {average?: number;};
     summary?: string;
-    image?: {medium: string;}
+    image?: {medium: string; original: string;};
+    cast?: {id: number, name: string, image: {medium: string, original: string} | null}[];
 }

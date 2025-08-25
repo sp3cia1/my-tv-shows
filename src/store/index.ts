@@ -2,18 +2,22 @@ import { applyMiddleware, combineReducers, createStore,  } from "redux"
 import showReducer from "./reducers/show"
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "@redux-devtools/extension";
-import { takeLatest } from "redux-saga/effects";
+import { debounce, takeEvery, takeLatest } from "redux-saga/effects";
 import { QUERY_CHANGED } from "./actions/show";
 import { searchShows } from "../apis";
 import { fetchShows } from "./sagas/shows";
+import showDetailsReducer from "./reducers/showDetails";
+import { fetchShowDetail } from "./sagas/showDetails";
 
 
 const reducer = combineReducers({
-  shows: showReducer
+  shows: showReducer,
+  showDetails: showDetailsReducer
 })
 
 const rootSaga = function* () {
-  yield takeLatest(QUERY_CHANGED, fetchShows)
+  yield debounce(200, QUERY_CHANGED, fetchShows)
+  yield takeEvery("LOAD_SHOW_DETAILS", fetchShowDetail);
 }
 
 const sagaMiddleware = createSagaMiddleware();

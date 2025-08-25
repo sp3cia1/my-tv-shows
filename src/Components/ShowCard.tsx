@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Show } from "../models/Show";
+import { AvatarStack } from "./AvatarStack";
 
 const placeholder = "https://placehold.co/210x295"
 
@@ -8,6 +9,12 @@ interface ShowCardProps {
 }
 
 function ShowCard({ show }: ShowCardProps) {
+  const data = show.cast?.map((member, i)=>({
+    key: member.id,
+    name: member.name,
+    href: member.url,
+    src: member.image?.medium || placeholder,
+  }))
   return (
     <div className="max-w-xs rounded-md shadow-md p-2 m-1">
       <img
@@ -22,6 +29,7 @@ function ShowCard({ show }: ShowCardProps) {
             {show.summary}
           </p>
         </div>
+          {data &&<AvatarStack data={data} max={3}/>}
         <Link
           to={"/show/" + show.id}
           className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md"
